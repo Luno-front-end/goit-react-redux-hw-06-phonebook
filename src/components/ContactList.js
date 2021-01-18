@@ -5,7 +5,7 @@ import phonebookActions from "../Redux/phonebook/phonebook-actions";
 
 import s from "./PhoneBock.module.css";
 
-function СontactList({ contactList, onDeleted }) {
+const СontactList = ({ contactList, onDeleted }) => {
   return (
     <ul className={"js-list"}>
       {contactList.map(({ id, name, number }) => {
@@ -27,17 +27,17 @@ function СontactList({ contactList, onDeleted }) {
       })}
     </ul>
   );
-}
+};
 
-const getFilterContacts = (allContacts, filterS) => {
-  const normalizeFilter = filterS.toLowerCase();
+const getFilterContacts = (allContacts, filter) => {
+  const normalizeFilter = filter.toLowerCase();
 
-  return allContacts.filter(({ name }) =>
-    name.toLowerCase().includes(normalizeFilter)
+  return allContacts.filter((contact) =>
+    contact.name.toLowerCase().includes(normalizeFilter)
   );
 };
-const mapStateToProps = ({ phonebook: { contacts, filterS } }) => ({
-  contactList: getFilterContacts(contacts, filterS),
+const mapStateToProps = ({ phonebook: { contacts, filter } }) => ({
+  contactList: getFilterContacts(contacts, filter),
 });
 
 const mapDispatchToProps = (dispatch) => ({

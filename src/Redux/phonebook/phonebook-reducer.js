@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 
 import types from "./phonebook-types";
 
-const constacts = (state = [], { type, payload }) => {
+const contacts = (state = [], { type, payload }) => {
   switch (type) {
     case types.ADD:
       return [payload, ...state];
@@ -14,7 +14,7 @@ const constacts = (state = [], { type, payload }) => {
   }
   console.log(payload);
 };
-const filterS = (state = "", { type, payload }) => {
+const filter = (state = "", { type, payload }) => {
   switch (type) {
     case types.VALUES_FILTER:
       return payload;
@@ -24,7 +24,7 @@ const filterS = (state = "", { type, payload }) => {
   }
 };
 export default combineReducers({
-  constacts,
-  filterS,
+  contacts,
+  filter,
 });
 // () => JSON.parse(localStorage.getItem("contacts")) ?? [];

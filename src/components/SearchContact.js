@@ -24,10 +24,10 @@ function SearchContact({ value, searchContact }) {
     </div>
   );
 }
-SearchContact.propTypes = {
-  velue: PropTypes.string.isRequired,
-  SearchContact: PropTypes.func.isRequired,
-};
+// SearchContact.propTypes = {
+//   velue: PropTypes.string.isRequired,
+//   SearchContact: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   value: state.phonebook.filter,
