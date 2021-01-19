@@ -6,7 +6,7 @@ import shortid from "shortid";
 import s from "./PhoneBock.module.css";
 
 function Form({ contactList, onSubmit }) {
-  const [name, setName] = useState("");
+  const [newName, setName] = useState("");
   const [number, setNumber] = useState("");
 
   const InputValues = (e) => {
@@ -24,26 +24,19 @@ function Form({ contactList, onSubmit }) {
     }
   };
   const addContact = (e) => {
-    // const lengthInputNemeChech = name.length;
-    // const lengthInputNumberChech = number.length;
+    const lengthInputNemeChech = newName.length;
+    const lengthInputNumberChech = number.length;
     e.preventDefault();
-    // if (lengthInputNemeChech < 2 || lengthInputNemeChech > 10) {
-    //   alert('Введіть ім"я більше 1-го символа і не більше 10');
-    //   return;
-    // }
-    // if (lengthInputNumberChech < 7 || lengthInputNumberChech > 10) {
-    //   alert("Введіть номер більше 7-ми цифр і не більше 10");
-    //   return;
-    // }
+    if (lengthInputNemeChech < 2 || lengthInputNemeChech > 10) {
+      alert('Введіть ім"я більше 1-го символа і не більше 10');
+      return;
+    }
+    if (lengthInputNumberChech < 7 || lengthInputNumberChech > 10) {
+      alert("Введіть номер більше 7-ми цифр і не більше 10");
+      return;
+    }
 
-    // const checkName = contactList(name);
-    // if (checkName) {
-    //   alert('Це ім"я вже існує');
-
-    //   return;
-    // }
-
-    console.log(onSubmit(name, number));
+    onSubmit(newName, number, contactList);
     resetInputValues();
   };
 
@@ -63,7 +56,7 @@ function Form({ contactList, onSubmit }) {
         id={idName}
         type="text"
         name="name"
-        value={name}
+        value={newName}
         onChange={InputValues}
         autoComplete="off"
       ></input>
@@ -87,8 +80,21 @@ function Form({ contactList, onSubmit }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (name, number) =>
-    dispatch(phonebookActions.addContact(name, number)),
+const onCheckName = (contactList, newName) => {
+  return contactList.some(({ name }) => name === newName);
+};
+
+const mapStateToProps = (state) => ({
+  contactList: state.phonebook.contacts,
 });
-export default connect(null, mapDispatchToProps)(Form);
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (newName, number, contactList) => {
+    if (onCheckName(contactList, newName)) {
+      alert('Це ім"я вже існує');
+      return;
+    }
+    dispatch(phonebookActions.addContact(newName, number));
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import shortid from "shortid";
 import phonebookActions from "../Redux/phonebook/phonebook-actions";
 
